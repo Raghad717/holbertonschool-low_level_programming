@@ -1,10 +1,10 @@
 #include <stdio.h>
 /**
  * 
- *
+ *Entry point
  * 
  *
- * 
+ * Return 0 (Scucess)
  */
 int main(void)
 {
