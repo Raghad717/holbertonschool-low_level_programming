@@ -1,4 +1,4 @@
-#include "main.h"
+#include <unistd.h>
 
 /**
  * main - Entry point
@@ -7,14 +7,14 @@
  */
 int main(void)
 {
-	char word[] = "_putchar";
-	int i;
+	char *str = "_putchar\n";
+	int i = 0;
 
-	for (i = 0; word[i] != '\0'; i++)
+	while (str[i] != '\0')
 	{
-		_putchar(word[i]);
+		write(1, &str[i], 1);
+		i++;
 	}
-	_putchar('\n');
 
-	return (0);
+	return (0);
 }
