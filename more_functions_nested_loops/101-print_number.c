@@ -6,31 +6,31 @@
  */
 void print_number(int n)
 {
-    unsigned int num, divisor, digit;
+	unsigned int num, divisor, digit;
 
-    /* Handle negative numbers */
-    if (n < 0)
-    {
-        _putchar('-');
-        num = -n;
-    }
-    else
-    {
-        num = n;
-    }
+	/* Handle negative numbers */
+	if (n < 0)
+	{
+		_putchar('-');
+		num = -n;
+	}
+	else
+	{
+		num = n;
+	}
 
-    /* Find the appropriate divisor */
-    divisor = 1;
-    while (num / divisor > 9)
-        divisor *= 10;
+	/* Find the appropriate divisor */
+	divisor = 1;
+	while (num / divisor > 9)
+		divisor *= 10;
 
-    /* Print each digit */
-    while (divisor != 0)
-    {
-        digit = num / divisor;
-        _putchar(digit + '0');
-        num %= divisor;
-        divisor /= 10;
-    }
+	/* Print each digit */
+	while (divisor != 0)
+	{
+		digit = num / divisor;
+		_putchar(digit + '0');
+		num %= divisor;
+		divisor /= 10;
+	}
 }
 
