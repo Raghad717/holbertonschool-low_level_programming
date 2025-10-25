@@ -7,33 +7,33 @@
  */
 int main(void)
 {
-    unsigned long num = 612852475143;
-    unsigned long largest_prime = 0;
-    unsigned long i;
+	unsigned long num = 612852475143;
+	unsigned long largest_prime = 0;
+	unsigned long i;
 
-    /* Divide out all factors of 2 */
-    while (num % 2 == 0)
-    {
-        largest_prime = 2;
-        num = num / 2;
-    }
+	/* Divide out all factors of 2 */
+	while (num % 2 == 0)
+	{
+		largest_prime = 2;
+		num = num / 2;
+	}
 
-    /* Check odd factors up to sqrt(num) */
-    for (i = 3; i <= sqrt(num); i = i + 2)
-    {
-        while (num % i == 0)
-        {
-            largest_prime = i;
-            num = num / i;
-        }
-    }
+	/* Check odd factors up to sqrt(num) */
+	for (i = 3; i <= sqrt(num); i = i + 2)
+	{
+		while (num % i == 0)
+		{
+			largest_prime = i;
+			num = num / i;
+		}
+	}
 
-    /* If what remains is greater than 2, it's prime */
-    if (num > 2)
-        largest_prime = num;
+	/* If what remains is greater than 2, it's prime */
+	if (num > 2)
+		largest_prime = num;
 
-    printf("%lu\n", largest_prime);
+	printf("%lu\n", largest_prime);
 
-    return (0);
+	return (0);
 }
 
