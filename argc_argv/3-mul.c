@@ -1,6 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * main - multiplies two numbers from command line arguments
+ * @argc: argument count
+ * @argv: argument vector
+ *
+ * Return: 0 on success, 1 on error
+ */
 int main(int argc, char *argv[])
 {
 	if (argc != 3)
