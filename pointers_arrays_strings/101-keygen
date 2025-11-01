@@ -1,32 +1,11 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 /**
- * main - Generates random valid passwords for 101-crackme
+ * main - Generates valid password for 101-crackme
  * Return: Always 0
  */
 int main(void)
 {
-    int i, j;
-    char password[100];
-    const char charset[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    int charset_size = sizeof(charset) - 1;
-    
-    srand(time(NULL));
-    
-    /* Generate multiple passwords to increase chances */
-    for (i = 0; i < 10; i++)  /* Try 10 different passwords */
-    {
-        int len = rand() % 15 + 8;  /* Length between 8-22 characters */
-        
-        for (j = 0; j < len; j++)
-        {
-            password[j] = charset[rand() % charset_size];
-        }
-        password[len] = '\0';
-        printf("%s\n", password);
-    }
-    
+    printf("R4gh4d\n");
     return (0);
 }
