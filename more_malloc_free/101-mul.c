@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 /**
  * _strlen - Returns the length of a string
@@ -44,8 +45,14 @@ int is_digit(char *s)
  */
 void print_error(void)
 {
-    /* IMPORTANT: print to stdout (fd=1), not stderr */
-    write(1, "Error\n", 6);
+    char error[] = "Error\n";
+    int i = 0;
+    
+    while (error[i] != '\0')
+    {
+        _putchar(error[i]);
+        i++;
+    }
     exit(98);
 }
 
@@ -53,9 +60,6 @@ void print_error(void)
  * multiply_strings - Multiplies two positive number strings and prints result
  * @num1: The first number as string
  * @num2: The second number as string
- *
- * Description: Grade-school multiplication into an int buffer.
- * Prints result without leading zeros, then '\n'.
  */
 void multiply_strings(char *num1, char *num2)
 {
@@ -72,29 +76,33 @@ void multiply_strings(char *num1, char *num2)
     for (i = len1 - 1; i >= 0; i--)
     {
         int d1 = num1[i] - '0';
-
         carry = 0;
+        
         for (j = len2 - 1; j >= 0; j--)
         {
             int d2 = num2[j] - '0';
             int sum = d1 * d2 + result[i + j + 1] + carry;
-
+            
             result[i + j + 1] = sum % 10;
             carry = sum / 10;
         }
         result[i] += carry;
     }
 
+    /* Skip leading zeros */
     while (start < len && result[start] == 0)
         start++;
 
+    /* Print result */
     if (start == len)
         _putchar('0');
     else
+    {
         for (; start < len; start++)
             _putchar(result[start] + '0');
-
+    }
     _putchar('\n');
+    
     free(result);
 }
 
