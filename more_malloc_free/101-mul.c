@@ -1,7 +1,6 @@
 #include "main.h"
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdio.h>
 
 /**
  * _strlen - Returns the length of a string
@@ -11,11 +10,11 @@
  */
 int _strlen(char *s)
 {
-    int len = 0;
+	int len = 0;
 
-    while (s[len] != '\0')
-        len++;
-    return (len);
+	while (s[len] != '\0')
+		len++;
+	return (len);
 }
 
 /**
@@ -26,18 +25,18 @@ int _strlen(char *s)
  */
 int is_digit(char *s)
 {
-    int i = 0;
+	int i = 0;
 
-    if (!s || s[0] == '\0')
-        return (0);
+	if (s == NULL || s[0] == '\0')
+		return (0);
 
-    while (s[i] != '\0')
-    {
-        if (s[i] < '0' || s[i] > '9')
-            return (0);
-        i++;
-    }
-    return (1);
+	while (s[i] != '\0')
+	{
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 /**
@@ -45,15 +44,28 @@ int is_digit(char *s)
  */
 void print_error(void)
 {
-    char error[] = "Error\n";
-    int i = 0;
-    
-    while (error[i] != '\0')
-    {
-        _putchar(error[i]);
-        i++;
-    }
-    exit(98);
+	char error[] = "Error\n";
+	int i = 0;
+
+	while (error[i] != '\0')
+	{
+		_putchar(error[i]);
+		i++;
+	}
+	exit(98);
+}
+
+/**
+ * remove_leading_zeros - Removes leading zeros from a number string
+ * @num: The number string to process
+ *
+ * Return: Pointer to the first non-zero digit
+ */
+char *remove_leading_zeros(char *num)
+{
+	while (*num == '0' && *(num + 1) != '\0')
+		num++;
+	return (num);
 }
 
 /**
@@ -63,47 +75,62 @@ void print_error(void)
  */
 void multiply_strings(char *num1, char *num2)
 {
-    int len1 = _strlen(num1);
-    int len2 = _strlen(num2);
-    int len = len1 + len2;
-    int *result;
-    int i, j, carry, start = 0;
+	int len1 = _strlen(num1);
+	int len2 = _strlen(num2);
+	int total_len = len1 + len2;
+	int *result;
+	int i, j, carry, start = 0;
+	int digit1, digit2, product;
 
-    result = calloc(len, sizeof(int));
-    if (!result)
-        exit(98);
+	/* Handle multiplication by zero efficiently */
+	if ((len1 == 1 && num1[0] == '0') || (len2 == 1 && num2[0] == '0'))
+	{
+		_putchar('0');
+		_putchar('\n');
+		return;
+	}
 
-    for (i = len1 - 1; i >= 0; i--)
-    {
-        int d1 = num1[i] - '0';
-        carry = 0;
-        
-        for (j = len2 - 1; j >= 0; j--)
-        {
-            int d2 = num2[j] - '0';
-            int sum = d1 * d2 + result[i + j + 1] + carry;
-            
-            result[i + j + 1] = sum % 10;
-            carry = sum / 10;
-        }
-        result[i] += carry;
-    }
+	result = malloc(total_len * sizeof(int));
+	if (result == NULL)
+		print_error();
 
-    /* Skip leading zeros */
-    while (start < len && result[start] == 0)
-        start++;
+	/* Initialize result array to zeros */
+	for (i = 0; i < total_len; i++)
+		result[i] = 0;
 
-    /* Print result */
-    if (start == len)
-        _putchar('0');
-    else
-    {
-        for (; start < len; start++)
-            _putchar(result[start] + '0');
-    }
-    _putchar('\n');
-    
-    free(result);
+	/* Perform multiplication */
+	for (i = len1 - 1; i >= 0; i--)
+	{
+		carry = 0;
+		digit1 = num1[i] - '0';
+
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			digit2 = num2[j] - '0';
+			product = digit1 * digit2 + result[i + j + 1] + carry;
+			result[i + j + 1] = product % 10;
+			carry = product / 10;
+		}
+		result[i] += carry;
+	}
+
+	/* Find first non-zero digit */
+	while (start < total_len && result[start] == 0)
+		start++;
+
+	/* Print result */
+	if (start == total_len)
+	{
+		_putchar('0');
+	}
+	else
+	{
+		for (i = start; i < total_len; i++)
+			_putchar(result[i] + '0');
+	}
+	_putchar('\n');
+
+	free(result);
 }
 
 /**
@@ -111,16 +138,22 @@ void multiply_strings(char *num1, char *num2)
  * @argc: Argument count
  * @argv: Argument vector
  *
- * Return: 0 on success (or exits 98 on error)
+ * Return: 0 on success, 98 on error
  */
 int main(int argc, char *argv[])
 {
-    if (argc != 3)
-        print_error();
+	char *num1, *num2;
 
-    if (!is_digit(argv[1]) || !is_digit(argv[2]))
-        print_error();
+	if (argc != 3)
+		print_error();
 
-    multiply_strings(argv[1], argv[2]);
-    return (0);
+	if (!is_digit(argv[1]) || !is_digit(argv[2]))
+		print_error();
+
+	num1 = remove_leading_zeros(argv[1]);
+	num2 = remove_leading_zeros(argv[2]);
+
+	multiply_strings(num1, num2);
+
+	return (0);
 }
