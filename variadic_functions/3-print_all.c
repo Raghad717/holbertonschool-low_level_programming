@@ -2,6 +2,16 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+/**
+ * print_all - prints anything based on format string
+ * @format: list of types of arguments passed to the function
+ * @...: variable number of arguments
+ *
+ * Description: Prints arguments based on format specifiers.
+ * c: char, i: integer, f: float, s: char* (prints (nil) if NULL)
+ * Other characters in format are ignored.
+ * Arguments are printed separated by commas.
+ */
 void print_all(const char * const format, ...)
 {
 	va_list args;
