@@ -6,12 +6,11 @@
 
 /**
  * struct dlistint_s - doubly linked list node
- * @n: integer stored in the node
- * @prev: pointer to the previous node
- * @next: pointer to the next node
+ * @n: integer value
+ * @prev: pointer to previous node
+ * @next: pointer to next node
  *
  * Description: doubly linked list node structure
- * for Holberton project
  */
 typedef struct dlistint_s
 {
@@ -44,7 +43,7 @@ int sum_dlistint(dlistint_t *head);
 /* Task 7 */
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n);
 
-/* Task 8 (coming next if needed) */
+/* Task 8 */
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index);
 
 #endif /* LISTS_H */
