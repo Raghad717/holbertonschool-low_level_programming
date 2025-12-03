@@ -5,12 +5,13 @@
 #include <stdlib.h>
 
 /**
- * struct dlistint_s - doubly linked list
- * @n: integer
- * @prev: pointer to previous node
- * @next: pointer to next node
+ * struct dlistint_s - doubly linked list node
+ * @n: integer stored in the node
+ * @prev: pointer to the previous node
+ * @next: pointer to the next node
  *
  * Description: doubly linked list node structure
+ * for Holberton project
  */
 typedef struct dlistint_s
 {
@@ -19,16 +20,31 @@ typedef struct dlistint_s
 	struct dlistint_s *next;
 } dlistint_t;
 
-/* Mandatory task prototypes */
+/* Task 0 */
 size_t print_dlistint(const dlistint_t *h);
+
+/* Task 1 */
+size_t dlistint_len(const dlistint_t *h);
+
+/* Task 2 */
 dlistint_t *add_dnodeint(dlistint_t **head, const int n);
+
+/* Task 3 */
 dlistint_t *add_dnodeint_end(dlistint_t **head, const int n);
+
+/* Task 4 */
 void free_dlistint(dlistint_t *head);
+
+/* Task 5 */
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index);
+
+/* Task 6 */
 int sum_dlistint(dlistint_t *head);
 
-/* Advanced task prototypes */
+/* Task 7 */
 dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n);
+
+/* Task 8 (coming next if needed) */
 int delete_dnodeint_at_index(dlistint_t **head, unsigned int index);
 
 #endif /* LISTS_H */
