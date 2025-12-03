@@ -75,6 +75,7 @@ void copy_file(int fd_from, int fd_to, const char *file_from, const char *file_t
 int main(int argc, char *argv[])
 {
 	int fd_from, fd_to;
+	int flags = O_WRONLY | O_CREAT | O_TRUNC;
 
 	if (argc != 3)
 		error_exit(97, "Usage: cp file_from file_to\n", "", -1);
@@ -83,7 +84,7 @@ int main(int argc, char *argv[])
 	if (fd_from == -1)
 		error_exit(98, "Error: Can't read from file %s\n", argv[1], -1);
 
-	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	fd_to = open(argv[2], flags, 0664);
 	if (fd_to == -1)
 	{
 		close_fd(fd_from);
