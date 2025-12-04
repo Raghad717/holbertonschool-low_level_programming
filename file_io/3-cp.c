@@ -5,13 +5,6 @@
 
 #define BUFFER_SIZE 1024
 
-/**
- * error_exit - prints error message and exits with specified code
- * @code: exit code
- * @msg: error message
- * @arg: argument for the message
- * @fd: file descriptor (if applicable)
- */
 void error_exit(int code, const char *msg, const char *arg, int fd)
 {
 	if (fd != -1)
@@ -21,10 +14,6 @@ void error_exit(int code, const char *msg, const char *arg, int fd)
 	exit(code);
 }
 
-/**
- * close_fd - closes a file descriptor and handles errors
- * @fd: file descriptor to close
- */
 void close_fd(int fd)
 {
 	if (close(fd) == -1)
@@ -34,14 +23,8 @@ void close_fd(int fd)
 	}
 }
 
-/**
- * copy_file - copies content from one file to another
- * @fd_from: source file descriptor
- * @fd_to: destination file descriptor
- * @file_from: source filename for error messages
- * @file_to: destination filename for error messages
- */
-void copy_file(int fd_from, int fd_to, const char *file_from, const char *file_to)
+void copy_file(int fd_from, int fd_to, const char *file_from,
+	       const char *file_to)
 {
 	ssize_t r_bytes, w_bytes;
 	char buffer[BUFFER_SIZE];
@@ -49,36 +32,26 @@ void copy_file(int fd_from, int fd_to, const char *file_from, const char *file_t
 	while (1)
 	{
 		r_bytes = read(fd_from, buffer, BUFFER_SIZE);
-		if (r_bytes > 0)
-		{
-			w_bytes = write(fd_to, buffer, r_bytes);
-			if (w_bytes != r_bytes)
-			{
-				close_fd(fd_from);
-				close_fd(fd_to);
-				error_exit(99, "Error: Can't write to %s\n", file_to, -1);
-			}
-		}
-		else if (r_bytes == 0)
-		{
+		if (r_bytes <= 0)
 			break;
-		}
-		else
+
+		w_bytes = write(fd_to, buffer, r_bytes);
+		if (w_bytes != r_bytes)
 		{
 			close_fd(fd_from);
 			close_fd(fd_to);
-			error_exit(98, "Error: Can't read from file %s\n", file_from, -1);
+			error_exit(99, "Error: Can't write to %s\n", file_to, -1);
 		}
+	}
+
+	if (r_bytes == -1)
+	{
+		close_fd(fd_from);
+		close_fd(fd_to);
+		error_exit(98, "Error: Can't read from file %s\n", file_from, -1);
 	}
 }
 
-/**
- * main - copies the content of a file to another file
- * @argc: number of arguments
- * @argv: arguments array
- *
- * Return: 0 on success, exits with codes 97, 98, 99, or 100 on errors
- */
 int main(int argc, char *argv[])
 {
 	int fd_from, fd_to;
