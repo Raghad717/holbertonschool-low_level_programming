@@ -5,6 +5,13 @@
 
 #define BUFFER_SIZE 1024
 
+/**
+ * error_exit - prints error message and exits with specified code
+ * @code: exit code
+ * @msg: error message
+ * @arg: argument for the message
+ * @fd: file descriptor (if applicable)
+ */
 void error_exit(int code, const char *msg, const char *arg, int fd)
 {
 	if (fd != -1)
@@ -14,6 +21,12 @@ void error_exit(int code, const char *msg, const char *arg, int fd)
 	exit(code);
 }
 
+/**
+ * close_fd - closes a file descriptor and handles errors
+ * @fd: file descriptor to close
+ *
+ * Return: nothing, exits with code 100 on error
+ */
 void close_fd(int fd)
 {
 	if (close(fd) == -1)
@@ -23,6 +36,15 @@ void close_fd(int fd)
 	}
 }
 
+/**
+ * copy_file - copies content from one file to another
+ * @fd_from: source file descriptor
+ * @fd_to: destination file descriptor
+ * @file_from: source filename for error messages
+ * @file_to: destination filename for error messages
+ *
+ * Return: nothing, exits with codes 98 or 99 on errors
+ */
 void copy_file(int fd_from, int fd_to, const char *file_from,
 	       const char *file_to)
 {
@@ -52,6 +74,13 @@ void copy_file(int fd_from, int fd_to, const char *file_from,
 	}
 }
 
+/**
+ * main - copies the content of a file to another file
+ * @argc: number of arguments
+ * @argv: arguments array
+ *
+ * Return: 0 on success, exits with codes 97, 98, 99, or 100 on errors
+ */
 int main(int argc, char *argv[])
 {
 	int fd_from, fd_to;
