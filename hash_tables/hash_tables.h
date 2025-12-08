@@ -45,4 +45,4 @@ void hash_table_delete(hash_table_t *ht);
 int update_value(hash_node_t *node, const char *value);
 hash_node_t *create_node(const char *key, const char *value);
 
-#endif /* HASH_TABLES_H */
+#endif /* HASH_TABLES_H */ 
